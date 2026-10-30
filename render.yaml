@@ -1,0 +1,32 @@
+# One-click deploy on Render: New + > Blueprint > pick your GitHub repo.
+services:
+  - type: web
+    name: vend
+    runtime: docker
+    plan: starter            # a persistent disk needs a paid plan; check Render's current pricing
+    healthCheckPath: /healthz
+    disk:
+      name: vend-data
+      mountPath: /data       # SQLite database lives here, so data survives restarts and redeploys
+      sizeGB: 1
+    envVars:
+      - { key: PORT, value: "3000" }
+      - { key: NODE_ENV, value: production }
+      - { key: DB_FILE, value: /data/vend.db }
+      - { key: FEE_PERCENT, value: "2" }
+      - { key: HOLD_DAYS, value: "3" }
+      - { key: META_MAX_DAILY_INR, value: "500" }
+      - { key: RZP_KEY_ID, sync: false }
+      - { key: RZP_KEY_SECRET, sync: false }
+      - { key: RZP_WEBHOOK_SECRET, sync: false }
+      - { key: ADMIN_TOKEN, generateValue: true }
+      - { key: ANTHROPIC_API_KEY, sync: false }
+      - { key: PUBLIC_URL, sync: false }      # your https://....onrender.com address (or custom domain)
+      - { key: WA_TOKEN, sync: false }
+      - { key: WA_PHONE_ID, sync: false }
+      - { key: WA_VERIFY_TOKEN, generateValue: true }
+      - { key: WA_APP_SECRET, sync: false }
+      - { key: WA_BUSINESS_NUMBER, sync: false }
+      - { key: META_TOKEN, sync: false }
+      - { key: META_AD_ACCOUNT_ID, sync: false }
+      - { key: META_PAGE_ID, sync: false }

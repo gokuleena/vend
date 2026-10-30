@@ -1,0 +1,19 @@
+{
+  "name": "vend-backend",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=22.5"
+  },
+  "scripts": {
+    "start": "node --env-file=.env server.js",
+    "dev": "node --watch --env-file=.env server.js",
+    "test": "node --test --test-concurrency=1 --no-warnings test/*.test.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^7.1.0"
+  }
+}
